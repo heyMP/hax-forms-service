@@ -1,0 +1,44 @@
+import { Story, Preview, Meta, Props } from '@storybook/addon-docs/blocks';
+import { html } from 'lit-html';
+
+import '../hax-form.js';
+
+<Meta title="Card|Docs" />
+
+# HaxForm
+
+A component for...
+
+## Features:
+
+- a
+- b
+- ...
+
+## How to use
+
+### Installation
+
+```bash
+yarn add hax-form
+```
+
+```js
+import 'hax-form/hax-form.js';
+```
+
+<Preview withToolbar>
+  <Story name="Simple" height="220px">
+    {html`
+      <hax-form></hax-form>
+    `}
+  </Story>
+</Preview>
+
+## API
+
+<Props of="hax-form" />
+
+## Playground
+
+Please select "Card Playground" story and open the knobs panel.

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        background: #fafafa;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="demo"></div>
+
+    <script type="module">
+      import { html, render } from 'lit-html';
+      import '../hax-form.js';
+
+      const title = 'Hello owc World!';
+      render(
+        html`
+        <hax-form formId="contact-us" endpoint="http://localhost:4000">
+          <form>
+            <p>
+              <label>Your Name: <input type="text" name="name"/></label>
+            </p>
+            <p>
+              <label>Your Email: <input type="email" name="email"/></label>
+            </p>
+            <p>
+              <label> Your Role: </label>
+                <select name="role[]" multiple>
+                  <option value="leader">Leader</option>
+                  <option value="follower">Follower</option>
+                </select></label
+              >
+            </p>
+            <p>
+              <label>Message: <textarea name="message"></textarea></label>
+            </p>
+            <p>
+              <button type="submit">Send</button>
+            </p>
+          </form>
+        </hax-form>
+      `,
+        document.querySelector('#demo'),
+      );
+    </script>
+  </body>
+</html>

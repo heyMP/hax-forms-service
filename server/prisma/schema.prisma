@@ -1,0 +1,24 @@
+datasource db {
+  provider = env("PRISMA_DB_PROVIDER")
+  url      = env("PRISMA_DB_URL")
+}
+
+generator photon {
+  provider = "photonjs"
+}
+
+model Submission {
+  id        String   @default(cuid()) @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  form      Form?
+  values    String?
+}
+
+model Form {
+  id          String       @default(cuid()) @id
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  reference   String       @unique
+  submissions Submission[]
+}

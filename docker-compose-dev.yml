@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - 4000:4000
+    volumes:
+      - /home/node/app/node_modules
+      - ./server/node_modules/@generated:/home/node/app/node_modules/@generated:delegated
+      - ./server:/home/node/app:delegated
+    environment:
+      - PRISMA_DB_PROVIDER=postgresql
+      - PRISMA_DB_URL=postgresql://prisma:prisma@postgres/
+    depends_on:
+      - postgres
+  
+  postgres:
+    image: postgres:10.3
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+    volumes:
+      - /var/lib/postgresql/data
+    labels:
+      - "traefik.enable=true" # Enable reverse-proxy for this service
+      - "traefik.port=5432"
