@@ -74,7 +74,7 @@ export class HaxForm extends LitElement {
     }
 
     if (this.endpoint) {
-      const values = this.collectFormValues(form);
+      const values = this.constructor.collectFormValues(form);
       const id = this.formId;
 
       fetch(this.endpoint, {
