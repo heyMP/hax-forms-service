@@ -99,6 +99,20 @@ export class HaxForm extends LitElement {
     }
   }
 
+  updated(changedProperties) {
+    changedProperties.forEach((oldValue, propName) => {
+      if (propName == 'loading') {
+        this.dispatchEvent(
+          new CustomEvent("loading-changed", {
+            detail: {
+              value: this[propName],
+            }
+          })
+        );
+      }
+    });
+  }
+
   /**
    * Collect all values of a form
    * @param {DOM Node} form 
