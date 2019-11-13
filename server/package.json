@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "prisma2 lift up -c && prisma2 generate && node ./server/index.js",
-    "dev": "prisma2 lift up -c && prisma2 generate && nodemon ./server/index.js",
+    "start": "prisma2 lift up -c && prisma2 generate && node index.js",
+    "dev": "prisma2 lift up -c && prisma2 generate && nodemon index.js",
     "migrate": "prisma2 lift up -c",
     "migrate-commit": "prisma2 lift save",
     "generate": "prisma2 generate"

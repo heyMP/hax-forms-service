@@ -26,11 +26,12 @@ async function main() {
   app.post('/', async (req, res) => {
     try {
       const { id, values } = req.body
-      if (id) {
+      const _id = id || ''
+      if (_id) {
         // create the form first reference first
         await photon.forms.upsert({
-          where: { reference: id },
-          create: { reference: id },
+          where: { reference: _id },
+          create: { reference: _id },
           update: {}
         })
       }
@@ -38,7 +39,7 @@ async function main() {
         data: {
           values: JSON.stringify(values),
           form: {
-            connect: { reference: id }
+            connect: { reference: _id }
           },
         },
         include: { form: true }
