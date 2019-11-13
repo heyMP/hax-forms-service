@@ -19,7 +19,7 @@ docker-compose -f docker-compose-dev.yml up --build
 Then you can use the `hax-form` web component in your website. Specify the `endpoint` of the hax-forms-service in as a property of the `hax-form` component.
 
 ```html
-  <script src="https://upkg.com/hax-form?module" type="module">
+  <script src="https://unpkg.com/hax-form?module" type="module">
   <hax-form endpoint="http://localhost:4000">
     <form>
       <p>
