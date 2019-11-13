@@ -4,7 +4,7 @@ export class HaxForm extends LitElement {
   static get properties() {
     return {
       endpoint: { type: String },
-      loading: { type: Boolean },
+      loading: { type: Boolean, reflect: true },
       formId: { type: String }
     }
   }
