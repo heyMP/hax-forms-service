@@ -1,47 +1,58 @@
 const { Photon } = require("@generated/photon");
 const photon = new Photon();
 const jwt = require("jsonwebtoken");
-const { ApolloServer, gql, AuthenticationError } = require("apollo-server-express")
+const {
+  ApolloServer,
+  gql,
+  AuthenticationError
+} = require("apollo-server-express");
 
 const HAXCMS_OAUTH_JWT_SECRET = process.env.HAXCMS_OAUTH_JWT_SECRET;
-const NETWORK = process.env.NETWORK;
-const HOST = process.env.HOST;
-const ADMINS = process.env.ADMINS || "heyMP";
 
 module.exports = async ({ app }) => {
   await photon.connect();
   const apolloServer = new ApolloServer({
     typeDefs: gql`
-    type Submission {
-      id: String
-      createdAt: String
-      updatedAt: String
-      form: Form
-      values: String
-    }
+      type Submission {
+        id: String
+        createdAt: String
+        updatedAt: String
+        form: Form
+        values: String
+      }
 
-    type Form {
-      id: String
-      createdAt: String
-      updatedAt: String
-      reference: String
-    }
+      type Form {
+        id: String
+        createdAt: String
+        updatedAt: String
+        reference: String
+        submissions: [Submission]
+      }
 
-    type BatchDeleteResponse {
-      count: Int
-    }
+      type BatchDeleteResponse {
+        count: Int
+      }
 
-    type Query {
-      submissions: [Submission]
-    }
-  `,
+      type Query {
+        submissions: [Submission]
+        forms: [Form]
+      }
+    `,
     resolvers: {
       Query: {
         submissions: async (parent, args, ctx) => {
           // if (!isAdmin({ user: ctx.user.name })) {
           //   throw new AuthenticationError(`Permission Denied`)
           // }
-          return await photon.submissions.findMany({ include: { form: true }})
+          return await photon.submissions.findMany({ include: { form: true } });
+        },
+        forms: async (parent, args, ctx) => {
+          // if (!isAdmin({ user: ctx.user.name })) {
+          //   throw new AuthenticationError(`Permission Denied`)
+          // }
+          return await photon.forms.findMany({
+            include: { submissions: true }
+          });
         }
       }
     },
@@ -64,4 +75,4 @@ module.exports = async ({ app }) => {
   };
 
   apolloServer.applyMiddleware({ app });
-}
+};
