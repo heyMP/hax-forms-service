@@ -15,6 +15,7 @@ services:
       - PRISMA_DB_URL=postgresql://prisma:prisma@postgres/
     depends_on:
       - postgres
+    command: 'yarn dev'
   
   postgres:
     image: postgres:10.3
