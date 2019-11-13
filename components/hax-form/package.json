@@ -2,7 +2,7 @@
   "name": "hax-form",
   "version": "0.0.0",
   "description": "Webcomponent hax-form following open-wc recommendations",
-  "author": "hax-form",
+  "author": "heyMP",
   "license": "MIT",
   "main": "index.js",
   "module": "index.js",
