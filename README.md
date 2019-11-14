@@ -20,30 +20,30 @@ Then you can use the `hax-form` web component in your website. Specify the `endp
 
 ```html
 <script src="https://unpkg.com/hax-form?module" type="module"></script>
-  <hax-form endpoint="http://localhost:4000">
-    <form>
-      <p>
-        <label>Your Name: <input type="text" name="name"/></label>
-      </p>
-      <p>
-        <label>Your Email: <input type="email" name="email"/></label>
-      </p>
-      <p>
-        <label> Your Role: </label>
-          <select name="role[]" multiple>
-            <option value="leader">Leader</option>
-            <option value="follower">Follower</option>
-          </select></label
-        >
-      </p>
-      <p>
-        <label>Message: <textarea name="message"></textarea></label>
-      </p>
-      <p>
-        <button type="submit">Send</button>
-      </p>
-    </form>
-  </hax-form>
+<hax-form endpoint="http://localhost:4000">
+  <form>
+    <p>
+      <label>Your Name: <input type="text" name="name"/></label>
+    </p>
+    <p>
+      <label>Your Email: <input type="email" name="email"/></label>
+    </p>
+    <p>
+      <label> Your Role: </label>
+        <select name="role[]" multiple>
+          <option value="leader">Leader</option>
+          <option value="follower">Follower</option>
+        </select></label
+      >
+    </p>
+    <p>
+      <label>Message: <textarea name="message"></textarea></label>
+    </p>
+    <p>
+      <button type="submit">Send</button>
+    </p>
+  </form>
+</hax-form>
 ```
 
 ## Development
