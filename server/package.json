@@ -25,7 +25,8 @@
     "moment": "^2.24.0",
     "fs-extra": "^8.1.0",
     "jsonwebtoken": "^8.5.1",
-    "nodemailer": "^6.4.5"
+    "nodemailer": "^6.4.5",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.2",

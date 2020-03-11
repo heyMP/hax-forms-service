@@ -8,6 +8,9 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
 const nodemailer = require("nodemailer");
 const EMAIL = process.env.EMAIL;
 const PASSWORD = process.env.PASSWORD;
+const fetch = require("node-fetch");
+const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET;
+const RECAPTCHA_MIN_SCORE = process.env.RECAPTCHA_MIN_SCORE;
 
 async function main() {
   const app = express();
@@ -28,9 +31,19 @@ async function main() {
     try {
       const { id, values } = req.body;
       let data = {
-        values: JSON.stringify(values)
+        values: values
       };
-      sendEmail(data);
+      // verify recaptcha
+      const verification = await verifyRecaptcha(data);
+      if (verification.success) {
+        for (let index in data.values) {
+          if (data.values[index].name === "recaptcha") {
+            data.values[index].value = verification;
+          }
+        }
+        // send email
+        sendEmail(data);
+      }
       res.send("ok");
     } catch (error) {
       console.error(error);
@@ -51,10 +64,34 @@ main()
   })
   .finally(async () => {});
 
+// verify recaptcha field
+const verifyRecaptcha = async (data) => {
+  let recaptcha = null;
+  for (let value of data.values) {
+    if (value.name === "recaptcha") {
+      recaptcha = value.value;
+    }
+  }
+  if (recaptcha && recaptcha !== "") {
+    const verification = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${RECAPTCHA_SECRET}&response=${recaptcha}`, {
+      method: "POST"
+    }).then(res => res.json())
+    if (verification.score && verification.score > RECAPTCHA_MIN_SCORE) {
+      return { ...verification };
+    }
+  }
+  return { success: false };
+}
+
 const sendEmail = async data => {
   let message = "";
-  for (let value of JSON.parse(data.values)) {
-    message += `<label>${value.name}</label>: ${value.value}<br>`;
+  for (let value of data.values) {
+    if (typeof value.value === "object") {
+      message += `<label>${value.name}</label>: ${JSON.stringify(value.value)}<br>`;
+    }
+    else {
+      message += `<label>${value.name}</label>: ${value.value}<br>`;
+    }
   }
 
   // create reusable transporter object using the default SMTP transport
