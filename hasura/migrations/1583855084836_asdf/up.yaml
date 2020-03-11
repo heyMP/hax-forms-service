@@ -1,0 +1,7 @@
+- args:
+    tables:
+    - table:
+        name: form
+        schema: public
+    version: 2
+  type: replace_metadata
