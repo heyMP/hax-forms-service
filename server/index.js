@@ -1,4 +1,5 @@
 //@ts-check
+const fs = require("fs")
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -7,7 +8,7 @@ const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
 // const { pubsub, FORM_SUBMITTED } = require("./apolloServer.js");
 const nodemailer = require("nodemailer");
 const EMAIL = process.env.EMAIL;
-const PASSWORD = process.env.PASSWORD;
+const EMAIL_PASSWORD = fs.existsSync(`/run/secrets/${process.env.EMAIL_PASSWORD}`) ? fs.readFileSync(`/run/secrets/${process.env.EMAIL_PASSWORD}`, 'utf8').trim() : process.env.EMAIL_PASSWORD;
 const fetch = require("node-fetch");
 const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET;
 const RECAPTCHA_MIN_SCORE = process.env.RECAPTCHA_MIN_SCORE;
@@ -101,7 +102,7 @@ const sendEmail = async data => {
     service: "gmail",
     auth: {
       user: EMAIL, // generated ethereal user
-      pass: PASSWORD // generated ethereal password
+      pass: EMAIL_PASSWORD // generated ethereal password
     }
   });
 
