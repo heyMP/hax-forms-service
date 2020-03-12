@@ -10,7 +10,7 @@ const nodemailer = require("nodemailer");
 const EMAIL = process.env.EMAIL;
 const EMAIL_PASSWORD = fs.existsSync(`/run/secrets/${process.env.EMAIL_PASSWORD}`) ? fs.readFileSync(`/run/secrets/${process.env.EMAIL_PASSWORD}`, 'utf8').trim() : process.env.EMAIL_PASSWORD;
 const fetch = require("node-fetch");
-const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET;
+const RECAPTCHA_SECRET = fs.existsSync(`/run/secrets/${process.env.RECAPTCHA_SECRET}`) ? fs.readFileSync(`/run/secrets/${process.env.RECAPTCHA_SECRET}`, 'utf8').trim() : process.env.RECAPTCHA_SECRET;
 const RECAPTCHA_MIN_SCORE = process.env.RECAPTCHA_MIN_SCORE;
 
 async function main() {
