@@ -15,7 +15,9 @@ const RECAPTCHA_MIN_SCORE = process.env.RECAPTCHA_MIN_SCORE;
 async function main() {
   const app = express();
 
-  app.use(cors());
+  app.use(cors({
+    origin: CORS_ORIGIN
+  }));
   app.use(bodyParser.text());
   app.use(bodyParser.json());
 
