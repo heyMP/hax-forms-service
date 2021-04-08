@@ -1,6 +1,6 @@
 # HAX Forms Service
 
-This is a micrservice that collects and stores form data submitted via the `hax-form` web component.
+This is a microservice that collects and stores form data submitted via the `hax-form` web component.
 
 ## Usage
 
